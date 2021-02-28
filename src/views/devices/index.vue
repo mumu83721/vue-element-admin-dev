@@ -27,14 +27,7 @@
           <span>{{ scope.row.author }}</span>
         </template>
       </el-table-column>
-
-      <el-table-column width="110px" align="center" label="转换数量">
-        <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column width="110px" align="center" label="设备">
+      <el-table-column width="110px" align="center" label="设备id">
         <template slot-scope="scope">
           <span>{{ scope.row.author }}</span>
         </template>
