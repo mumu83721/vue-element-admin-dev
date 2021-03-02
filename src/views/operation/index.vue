@@ -11,9 +11,10 @@
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
       </el-select> -->
       <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
-        <label class="label" for="name">名称:
-          <input v-model="postForm.name" name="name">
-        </label>
+        <el-form-item label="名称:" :label-width="formLabelWidth">
+          <el-input v-model="postForm.name" autocomplete="off" />
+        </el-form-item>
+        <area-select v-model="selected" :data="pca" />
         <label class="label" for="address">地址:
           <input v-model="postForm.address" name="address">
         </label>
@@ -51,7 +52,9 @@
 </template>
 
 <script>
-import { fetchList, addHotel,getHotel } from '@/api/article'
+
+import { addHotel, getHotel } from '@/api/article'
+import { pca, pcaa } from 'area-data'
 
 const defaultForm = {
   address: '',
@@ -77,6 +80,7 @@ export default {
   },
   data() {
     return {
+      formLabelWidth: '120px',
       postForm: Object.assign({}, defaultForm),
       dialogTableVisible: false,
       list: null,
@@ -86,7 +90,10 @@ export default {
         type: this.type,
         sort: '+id'
       },
-      loading: false
+      loading: false,
+      selected: [],
+      pca: pca,
+      pcaa: pcaa
     }
   },
   created() {
@@ -98,7 +105,7 @@ export default {
       this.$emit('create') // for test
       getHotel(this.listQuery).then(response => {
         this.list = response.rows
-        console.log("!!!!!" + JSON.stringify(response))
+        console.log('!!!!!' + JSON.stringify(response))
         this.loading = false
       })
     },

@@ -33,6 +33,10 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
+import 'vue-area-linkage/dist/index.css' // v2 or higher
+import VueAreaLinkage from 'vue-area-linkage'
+Vue.use(VueAreaLinkage)
+
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   locale: enLang // 如果使用中文，无需设置，请删除
