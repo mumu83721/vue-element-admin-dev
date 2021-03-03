@@ -25,9 +25,14 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="110px" align="center" label="酒店地址">
+      <el-table-column width="110px" align="center" label="省">
         <template slot-scope="scope">
-          <span>{{ scope.row.address }}</span>
+          <span>{{ scope.row.province }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column width="110px" align="center" label="市">
+        <template slot-scope="scope">
+          <span>{{ scope.row.city }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -43,9 +48,9 @@
           <area-select v-model="selected" :data="pca" />
         </el-form-item>
         <el-form-item label="付款方式:" :label-width="formLabelWidth">
-          <el-select placeholder="请选择活动区域">
-            <el-option label="区域一" value="shanghai" />
-            <el-option label="区域二" value="beijing" />
+          <el-select v-model="postForm.payway" placeholder="付款方式">
+            <el-option label="扫码单独使用" value="1" />
+            <el-option label="包含房费内" value="2" />
           </el-select>
         </el-form-item>
 
@@ -61,11 +66,6 @@
 
 import { addHotel, getHotel } from '@/api/article'
 import { pca, pcaa } from 'area-data'
-
-const defaultForm = {
-  address: '',
-  name: ''
-}
 
 export default {
   filters: {
@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       formLabelWidth: '120px',
-      postForm: Object.assign({}, defaultForm),
+      postForm: Object.assign({}),
       dialogTableVisible: false,
       list: null,
       listQuery: {
@@ -117,6 +117,8 @@ export default {
     },
     submitForm() {
       this.loading = true
+      this.postForm.province = this.selected[0]
+      this.postForm.city = this.selected[1]
       console.log(this.postForm)
       addHotel(this.postForm).then(response => {
         this.loading = false
