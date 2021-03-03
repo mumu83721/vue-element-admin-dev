@@ -45,7 +45,7 @@
           <el-input v-model="postForm.name" autocomplete="off" width="100px" />
         </el-form-item>
         <el-form-item label="地址:" :label-width="formLabelWidth">
-          <area-select v-model="selected" :data="pca" />
+          <area-select v-model="selected" :data="pca" type="text" height="100px" />
         </el-form-item>
         <el-form-item label="付款方式:" :label-width="formLabelWidth">
           <el-select v-model="postForm.payway" placeholder="付款方式">
