@@ -6,23 +6,6 @@
     <el-button type="primary" style="width:200px;display:inline-block;vertical-align: middle;margin-left:10px;margin-bottom:10px;" @click="dialogTableVisible = true">
       新增
     </el-button>
-    <el-dialog v-el-drag-dialog :visible.sync="dialogTableVisible" title="新增酒店" @dragDialog="handleDrag">
-      <!-- <el-select ref="select" v-model="value" placeholder="请选择">
-        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-      </el-select> -->
-      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
-        <el-form-item label="名称:" :label-width="formLabelWidth">
-          <el-input v-model="postForm.name" autocomplete="off" />
-        </el-form-item>
-        <area-select v-model="selected" :data="pca" />
-        <label class="label" for="address">地址:
-          <input v-model="postForm.address" name="address">
-        </label>
-      </el-form>
-      <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
-        添加
-      </el-button>
-    </el-dialog>
     <el-table :data="list" border fit highlight-current-row style="width: 100%">
       <el-table-column
         v-loading="loading"
@@ -48,6 +31,29 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog :visible.sync="dialogTableVisible" title="新增酒店">
+      <!-- <el-select ref="select" v-model="value" placeholder="请选择">
+        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+      </el-select> -->
+      <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
+        <el-form-item label="名称:" :label-width="formLabelWidth">
+          <el-input v-model="postForm.name" autocomplete="off" width="100px" />
+        </el-form-item>
+        <el-form-item label="地址:" :label-width="formLabelWidth">
+          <area-select v-model="selected" :data="pca" />
+        </el-form-item>
+        <el-form-item label="付款方式:" :label-width="formLabelWidth">
+          <el-select placeholder="请选择活动区域">
+            <el-option label="区域一" value="shanghai" />
+            <el-option label="区域二" value="beijing" />
+          </el-select>
+        </el-form-item>
+
+      </el-form>
+      <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
+        添加
+      </el-button>
+    </el-dialog>
   </div>
 </template>
 
