@@ -8,46 +8,52 @@
         v-loading="loading"
         align="center"
         label="地区"
-        width="65"
+        width="150px"
         element-loading-text="请给我点时间！"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.id }}</span>
+          <span>{{ scope.row.Hotel.province+scope.row.Hotel.city }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="110px" align="center" label="酒店名称">
+      <el-table-column width="200px" align="center" label="详细地址">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.Hotel.address }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="酒店名称">
+        <template slot-scope="scope">
+          <span>{{ scope.row.Hotel.name }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="110px" align="center" label="房间号">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.room }}</span>
         </template>
       </el-table-column>
       <el-table-column width="110px" align="center" label="设备id">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.id }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="110px" align="center" label="设备状态">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.status }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="110px" align="center" label="安装人">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.installman }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="110px" align="center" label="安装时间">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.created_at }}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -55,7 +61,7 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
+import { fetchDeviceList } from '@/api/article'
 
 export default {
   filters: {
@@ -78,8 +84,8 @@ export default {
     return {
       list: null,
       listQuery: {
-        page: 1,
-        limit: 5,
+        page: 0,
+        size: 20,
         type: this.type,
         sort: '+id'
       },
@@ -93,8 +99,9 @@ export default {
     getList() {
       this.loading = true
       this.$emit('create') // for test
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
+      fetchDeviceList(this.listQuery).then(response => {
+        this.list = response.rows
+        console.log(this.list)
         this.loading = false
       })
     }

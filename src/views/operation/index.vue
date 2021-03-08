@@ -35,6 +35,11 @@
           <span>{{ scope.row.city }}</span>
         </template>
       </el-table-column>
+      <el-table-column width="110px" align="center" label="详细地址">
+        <template slot-scope="scope">
+          <span>{{ scope.row.address }}</span>
+        </template>
+      </el-table-column>
     </el-table>
     <el-dialog :visible.sync="dialogTableVisible" title="新增酒店">
       <!-- <el-select ref="select" v-model="value" placeholder="请选择">
@@ -44,8 +49,11 @@
         <el-form-item label="名称:" :label-width="formLabelWidth">
           <el-input v-model="postForm.name" autocomplete="off" width="100px" />
         </el-form-item>
-        <el-form-item label="地址:" :label-width="formLabelWidth">
+        <el-form-item label="省市:" :label-width="formLabelWidth">
           <area-select v-model="selected" :data="pca" type="text" height="100px" />
+        </el-form-item>
+        <el-form-item label="详细地址:" :label-width="formLabelWidth">
+          <el-input v-model="postForm.address" autocomplete="off" width="100px" />
         </el-form-item>
         <el-form-item label="付款方式:" :label-width="formLabelWidth">
           <el-select v-model="postForm.payway" placeholder="付款方式">
@@ -91,8 +99,8 @@ export default {
       dialogTableVisible: false,
       list: null,
       listQuery: {
-        page: 1,
-        limit: 5,
+        page: 0,
+        size: 20,
         type: this.type,
         sort: '+id'
       },

@@ -53,7 +53,16 @@ export function getHotel(data) {
   return request({
     url: '/api/hotel/list',
     method: 'get',
-    // params: data,
+    params: data,
+    baseURL: 'http://127.0.0.1:4002'
+  })
+}
+
+export function fetchDeviceList(data) {
+  return request({
+    url: '/api/device/list',
+    method: 'get',
+    params: data,
     baseURL: 'http://127.0.0.1:4002'
   })
 }
